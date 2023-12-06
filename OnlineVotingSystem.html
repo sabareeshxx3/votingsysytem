@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #candidates, #votingForm {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        label, select, button {
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Online Voting System</h1>
+        <div id="candidates"></div>
+        <div id="votingForm">
+            <label for="candidateSelect">Choose a candidate:</label>
+            <select id="candidateSelect"></select>
+            <button onclick="vote()">Vote</button>
+        </div>
+        <button onclick="displayResults()">Find Results</button>
+    </div>
+
+    <script>
+        const candidates = ["Candidate A", "Candidate B", "Candidate C"];
+        let votes = {};
+
+        document.addEventListener("DOMContentLoaded", function () {
+            displayCandidates();
+        });
+
+        function displayCandidates() {
+            const candidateSelect = document.getElementById("candidateSelect");
+
+            candidates.forEach(candidate => {
+                const option = document.createElement("option");
+                option.value = candidate;
+                option.text = candidate;
+                candidateSelect.add(option);
+            });
+        }
+
+        function vote() {
+            const candidateSelect = document.getElementById("candidateSelect");
+            const selectedCandidate = candidateSelect.value;
+
+            votes[selectedCandidate] = (votes[selectedCandidate] || 0) + 1;
+            alert("Vote cast successfully!");
+        }
+
+        function displayResults() {
+            const resultsList = document.getElementById("candidates");
+            resultsList.innerHTML = "";
+
+            for (const candidate in votes) {
+                const resultItem = document.createElement("div");
+                resultItem.textContent = `${candidate}: ${votes[candidate]} votes`;
+                resultsList.appendChild(resultItem);
+            }
+        }
+    </script>
+</body>
+</html>
